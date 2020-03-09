@@ -13,7 +13,7 @@ Input:
 
     python3.8 'https://scrapethissite.com/'
     
-python output:
+python output(tarverse breadth):
 
     https://scrapethissite.com/
     https://scrapethissite.com/pages/
