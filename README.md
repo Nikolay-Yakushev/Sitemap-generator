@@ -13,7 +13,7 @@ Input:
 
     python3.8 'https://scrapethissite.com/'
     
-output:
+python output:
 
     https://scrapethissite.com/
     https://scrapethissite.com/pages/
@@ -27,7 +27,7 @@ output:
     https://scrapethissite.com/pages/advanced/
     https://scrapethissite.com/robots.txt
 
-db output:
+PostgreSQL database output:
 
     rest_db=# select * from urls;
                 url_parent             |                     url_child                     
