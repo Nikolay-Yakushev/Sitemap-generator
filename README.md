@@ -13,7 +13,7 @@ Input:
 
     python3.8 main.py 'https://scrapethissite.com/'
     
-python output(tarverse breadth):
+python output(traverse breadth):
 
     https://scrapethissite.com/
     https://scrapethissite.com/pages/
