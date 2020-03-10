@@ -36,7 +36,7 @@ class SiteMap:
     def get_content(url):
         try:
             source = requests.get(url, timeout=5)
-        # exception which may arise to to request timeout
+        # exception which may arise due to request timeout
         except requests.exceptions.ReadTimeout as e:
             logger.warning(f'{url=} unable to access due to {e=}')
             return None
