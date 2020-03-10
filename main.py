@@ -13,7 +13,7 @@ if __name__ == '__main__':
     # print when all pages are downloaded
     if result:
         print("Downloaded")
-    # using generator to walk traverse urls in breadth
+    # using generator to traverse urls in breadth
     url_structure = traverse_breadth(sitemap.parent_children, url)
 
     # traverse breadth
