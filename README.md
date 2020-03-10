@@ -29,7 +29,7 @@ python output(tarverse breadth):
 
 PostgreSQL database output:
 
-    rest_db=# select * from urls;
+    test_db=# select * from urls;
                 url_parent             |                     url_child                     
     -----------------------------------+---------------------------------------------------
      https://scrapethissite.com/       | https://scrapethissite.com/pages/
