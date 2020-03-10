@@ -1,15 +1,21 @@
 # Library dependencies for the python code.  You need to install these with
 # `pip install -r requirements.txt` before you can run this.
 
+# Required:
+  # Language version Python3.8:
+  # sudo apt install python3.8
+  # PostgreSQL:
+  # sudo apt install postgresql-12
+
+# After installing python3.8 and Postgres 12
+# You can `pip install -r requirements.txt`
 #### ESSENTIAL LIBRARIES FOR MAIN FUNCTIONALITY ####
 
-#Python modules:
-Python3.8
+# Python modules:
+
 lxml == 4.5.0
 urllib3 == 1.25.8
 beautifulsoup4 ==4.8.2
 requests ==2.23.0
 psycopg2 ==2.8.4
 PyYaml == 5.3
-#PostgreSQL:
-sudo apt install postgresql-12 postgresql-contrib-12
