@@ -11,7 +11,7 @@ Usage example:
 
 Input:
 
-    python3.8 'https://scrapethissite.com/'
+    python3.8 main.py 'https://scrapethissite.com/'
     
 python output(tarverse breadth):
 
