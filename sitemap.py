@@ -84,13 +84,13 @@ class SiteMap:
         # starting the queue of urls'
         # first url is the website
         # for which sitemap need to be build
-        # while len(self._download_queue) > 0:
         page_content = self.get_content(url_requested)
         if page_content is None:
             # delete from queue page with content equal to None
             self._download_queue.pop(self._download_queue.index(url_requested))
         # links_found is a list of all url founded in the parsed page
         links_found = self.search_links(page_content, url_requested)
+
         # check if requested url has been already parsed
         if url_requested not in self.parent_children:
             self.parent_children[url_requested] = []
@@ -110,6 +110,7 @@ class SiteMap:
     def crawler(self):
         while len(self._download_queue) > 0:
             with concurrent.futures.ThreadPoolExecutor(max_workers=8) as executor:
+                # map thread to url in download_queue
                 executor.map(self.parser, self._download_queue)
         # delete links which has no children links
         for parent_link in list(self.parent_children):
@@ -117,12 +118,11 @@ class SiteMap:
                 self.parent_children.pop(parent_link)
         return True
 
-
+# start_point = https://scrapethissite.com/
 def traverse_breadth(structure, start_point):
     # yield main url of a structure
-    # start_point = https://scrapethissite.com/
     yield start_point
-    # structure[start] = []['https://scrapethissite.com/pages/', 'https://scrapethissite.com/lessons/',...]
+    # structure[start] = ['https://scrapethissite.com/pages/', 'https://scrapethissite.com/lessons/',...]
     page_nodes = structure[start_point]
     while len(page_nodes) > 0:
         # pages we will get after parsing structure[start]

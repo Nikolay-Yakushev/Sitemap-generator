@@ -3,7 +3,7 @@
 import yaml
 import psycopg2
 
-
+# connection to db function
 def connect_db():
     # private database config
     with open('config_db.yaml', 'r') as config_db:
@@ -18,7 +18,7 @@ def connect_db():
     return conn
 
 
-# check if table has already been created
+# function to check if table has already been created
 def is_table(table_name):
     con = connect_db()
     cur = con.cursor()
@@ -30,7 +30,13 @@ def is_table(table_name):
         return True
     con.close()
 
-
+# function that writes to database
+# in the following format :
+# url_parent  url_child
+#  a             b
+#  a             c
+#  b             d
+#  b             e
 def write_db(table_name, url_parent, url_child):
     con = connect_db()
 
@@ -50,11 +56,14 @@ def write_db(table_name, url_parent, url_child):
     con.close()
 
 
-# drop table method
+# drop table function
 def delete_table(table_name):
     con = connect_db()
     drop_table = f"drop table {table_name}"
     cur = con.cursor()
+    # if script starts again
+    # delete_table function will
+    # drop table created in previous iteration
     result = is_table(table_name)
     if result:
         cur.execute(drop_table)
