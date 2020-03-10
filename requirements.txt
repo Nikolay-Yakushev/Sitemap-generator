@@ -12,7 +12,8 @@
   # 2) usernanme : createuser --interactive;
   # (Shall the new role be allowed to create databases? (y/n) n)
   # 3) create database test_db with owner=username;
-  # 4) fulfill config_db with inforamtion
+  # 4) ALTER USER username WITH PASSWORD 'new_password';
+  # 5) fulfill config_db with inforamtion
   
   # for auntification use following command
   # psql -h localhost test_db username
