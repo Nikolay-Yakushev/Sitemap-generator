@@ -87,7 +87,8 @@ class SiteMap:
         page_content = self.get_content(url_requested)
         if page_content is None:
             # delete from queue page with content equal to None
-            self._download_queue.pop(self._download_queue.index(url_requested))
+            # remove provide thread safe operation
+            self._download_queue.remove(url_requested)
         # links_found is a list of all url founded in the parsed page
         links_found = self.search_links(page_content, url_requested)
 
@@ -96,14 +97,15 @@ class SiteMap:
             self.parent_children[url_requested] = []
         for link_rel in links_found:
             # check if page have been already parsed to exclude doubles in self._parent_pages as well
-            if link_rel not in self._total_pages and link_rel not in self.parent_children and link_rel != url_requested:
+            if link_rel not in self._total_pages and link_rel not in self.parent_children:
                 # append to a queue list and to a all pages of a site
                 self._download_queue.append(link_rel)
                 self._total_pages.append(link_rel)
                 # form connection between parent and children
                 self.parent_children[url_requested].append(link_rel)
         # delete from queue page which has been checked
-        self._download_queue.pop(self._download_queue.index(url_requested))
+        # remove provide thread safe operation
+        self._download_queue.remove(url_requested)
         return True
 
     # concurrently parse pages

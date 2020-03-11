@@ -5,7 +5,7 @@ if __name__ == '__main__':
     from sitemap import SiteMap, traverse_breadth
     import db
 
-    url = sys.argv[1]  #'https://scrapethissite.com/'
+    url = sys.argv[1]  # 'https://scrapethissite.com/'
     # creating sitemap object
     sitemap = SiteMap(url)
     table_name = 'urls'
@@ -25,4 +25,3 @@ if __name__ == '__main__':
         for url_child in links_children:
             # writing to db
             db.write_db(table_name, url_parent, url_child)
-
