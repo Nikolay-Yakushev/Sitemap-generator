@@ -17,7 +17,6 @@ logger.addHandler(file_handler)
 class SiteMap:
 
     def __init__(self, url):
-        self.ignore_lst = []
         self.url = url
         self._download_queue = [url]
         self._total_pages = []
@@ -47,7 +46,7 @@ class SiteMap:
         except (requests.exceptions.MissingSchema, requests.exceptions.ConnectionError,
                 requests.exceptions.InvalidURL,
                 requests.exceptions.InvalidSchema, requests.exceptions.ReadTimeout) as e:
-            logger.warning(f'{url=} unable to access due to {e}')
+            logger.warning(f'{url} unable to access due to {e}')
             return None
         # check if  url is html page
         content_type = source.headers.get('content-type')
@@ -77,7 +76,11 @@ class SiteMap:
             href = anchor_link.get('href')
             # print(href)
             if self.is_same_domain(href):
-                # print(href)
+                # after check might be either
+                # full: https://proxy-seller.ru/blog/parser_datacol_dlya_seo-specialistov
+                # of relative: /bulgarian-proxy
+
+
                 # Examples :
                 #  href=/reception/
                 #  base_url = https://www.cbr.ru/
@@ -87,9 +90,7 @@ class SiteMap:
         return result
 
     def parser(self, url_requested):
-        # if url_requested not in self.ignore_lst:
-        print(f'{url_requested} is in process')
-        self.ignore_lst.append(url_requested)
+        #print(f'{url_requested} is in process')
         # starting the queue of urls'
         # first url is the website
         # for which sitemap need to be build
