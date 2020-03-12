@@ -12,38 +12,41 @@ file_handler = logging.FileHandler('errors_data.log')
 file_handler.setFormatter(foramtter)
 logger.addHandler(file_handler)
 
+
 # This is a class that generate sitemap dict
 class SiteMap:
 
     def __init__(self, url):
+        self.ignore_lst = []
         self.url = url
         self._download_queue = [url]
         self._total_pages = []
         self.parent_children = {}
 
-    @staticmethod
-    def is_same_domain(url_check):
-        netloc, schema, path, params, query, fragment = urlparse(url_check)
+    # @staticmethod
+    def is_same_domain(self, url_check):
+        # print(urlparse(self.url).netloc)
+        scheme, netloc, path, params, query, fragment = urlparse(url_check)
         # https://vk.com/proxyseller.netloc == vk.com
         # /privacy.netloc == ''
         # /privacy.schema == ''
         # Check invalid schema like "live:.cid.fc79c22e74567bb3"
-        if netloc == '' and schema in ['http', 'https', '']:
+
+        # function check if url is not empty, netloc is either empty or is internal like https://vk.com/proxyseller
+        # and schema in ['http', 'https', '']
+        if url_check != '' and netloc in ['', urlparse(self.url).netloc] and scheme in ['http', 'https', '']:
+            # print(url_check)
             return True
 
     @staticmethod
     # Try to access pages except some Error arises
     def get_content(url):
         try:
-            source = requests.get(url, timeout=5)
-        # exception which may arise due to request timeout
-        except requests.exceptions.ReadTimeout as e:
-            logger.warning(f'{url=} unable to access due to {e=}')
-            return None
+            source = requests.get(url, stream=True)
         # exceptions which might arise
         except (requests.exceptions.MissingSchema, requests.exceptions.ConnectionError,
                 requests.exceptions.InvalidURL,
-                requests.exceptions.InvalidSchema) as e:
+                requests.exceptions.InvalidSchema, requests.exceptions.ReadTimeout) as e:
             logger.warning(f'{url=} unable to access due to {e}')
             return None
         # check if  url is html page
@@ -68,9 +71,13 @@ class SiteMap:
         soap = BeautifulSoup(page_content, 'lxml')
 
         for anchor_link in soap.find_all('a'):
-            # href  = /privacy or https://vk.com/cbr/
+
+            # href might be either full link like href==https://vk.com/proxyseller/privacy
+            #  or relative one line href==/privacy
             href = anchor_link.get('href')
+            # print(href)
             if self.is_same_domain(href):
+                # print(href)
                 # Examples :
                 #  href=/reception/
                 #  base_url = https://www.cbr.ru/
@@ -80,7 +87,9 @@ class SiteMap:
         return result
 
     def parser(self, url_requested):
+        # if url_requested not in self.ignore_lst:
         print(f'{url_requested} is in process')
+        self.ignore_lst.append(url_requested)
         # starting the queue of urls'
         # first url is the website
         # for which sitemap need to be build
@@ -91,11 +100,12 @@ class SiteMap:
             self._download_queue.remove(url_requested)
         # links_found is a list of all url founded in the parsed page
         links_found = self.search_links(page_content, url_requested)
-
+        # print(links_found)
         # check if requested url has been already parsed
         if url_requested not in self.parent_children:
             self.parent_children[url_requested] = []
         for link_rel in links_found:
+
             # check if page have been already parsed to exclude doubles in self._parent_pages as well
             if link_rel not in self._total_pages and link_rel not in self.parent_children:
                 # append to a queue list and to a all pages of a site
@@ -111,7 +121,7 @@ class SiteMap:
     # concurrently parse pages
     def crawler(self):
         while len(self._download_queue) > 0:
-            with concurrent.futures.ThreadPoolExecutor(max_workers=8) as executor:
+            with concurrent.futures.ThreadPoolExecutor(max_workers=32) as executor:
                 # map thread to url in download_queue
                 executor.map(self.parser, self._download_queue)
         # delete links which has no children links
@@ -119,6 +129,7 @@ class SiteMap:
             if not len(self.parent_children[parent_link]):
                 self.parent_children.pop(parent_link)
         return True
+
 
 # start_point = https://scrapethissite.com/
 def traverse_breadth(structure, start_point):

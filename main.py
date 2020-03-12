@@ -5,23 +5,27 @@ if __name__ == '__main__':
     from sitemap import SiteMap, traverse_breadth
     import db
 
-    url = sys.argv[1]  # 'https://scrapethissite.com/'
+    url = 'https://proxy-seller.ru/'
+    # examples to test:
+    # 1) https://scrapethissite.com/
+    # 2) https://proxy-seller.ru/
+    # 3) https://yandex.ru/
+
     # creating sitemap object
-    sitemap = SiteMap(url)
+    sitemap_first = SiteMap(url)
     table_name = 'urls'
-    result = sitemap.crawler()
+    result = sitemap_first.crawler()
     # print when all pages are downloaded
     if result:
         print("Downloaded")
     # using generator to traverse urls in breadth
-    url_structure = traverse_breadth(sitemap.parent_children, url)
-
+    url_structure = traverse_breadth(sitemap_first.parent_children, url)
     # traverse breadth
     for url in url_structure:
         print(url)
-    # delete from db table if it has been created recently
-    db.delete_table(table_name)
-    for url_parent, links_children in sitemap.parent_children.items():
-        for url_child in links_children:
-            # writing to db
-            db.write_db(table_name, url_parent, url_child)
+
+    # delete table (uncomment if necessary )
+    #db.delete_table(table_name)
+
+    # executemany method added
+    db.write_db(table_name, sitemap_first.parent_children)

@@ -3,6 +3,7 @@
 import yaml
 import psycopg2
 
+
 # connection to db function
 def connect_db():
     # private database config
@@ -26,33 +27,37 @@ def is_table(table_name):
                                 from information_schema.tables 
                                 where table_name=%s);"""
     cur.execute(is_table, (table_name,))
-    if cur.fetchone()[0]:
-        return True
+    if not cur.fetchone()[0]:
+        table_create(table_name)
     con.close()
+
+
+def table_create(table_name):
+    con = connect_db()
+    cur = con.cursor()
+    table_crt = f"""create table {table_name} (url_parent text,
+                                                    url_children text);"""
+    cur.execute(table_crt)
+    con.close()
+
 
 # function that writes to database
 # in the following format :
 # url_parent  url_child
-#  a             b
-#  a             c
-#  b             d
-#  b             e
-def write_db(table_name, url_parent, url_child):
+#  a             [b, c, d, f]
+#  b             [h, j, k, l]
+#  l             [q, w, e, r, t]
+def write_db(table_name, data):
     con = connect_db()
 
     cur = con.cursor()
-    table_crt = f"""create table {table_name} (url_parent text,
-                                                url_child text);"""
 
-    url_ins = """insert into urls (url_parent, url_child) values(%s, %s);"""
+    url_ins = f"""insert into {table_name} (url_parent, url_children) values(%s, %s);"""
 
-    result = is_table(table_name)
-    if not result:
-        # if table does not exist create it and write data
-        cur.execute(table_crt)
-        cur.execute(url_ins, (url_parent, url_child,))
-    else:
-        cur.execute(url_ins, (url_parent, url_child,))
+    # check if table exist
+    is_table(table_name)
+    # executemany method added
+    cur.executemany(url_ins, (data.items()))
     con.close()
 
 
@@ -61,10 +66,5 @@ def delete_table(table_name):
     con = connect_db()
     drop_table = f"drop table {table_name}"
     cur = con.cursor()
-    # if script starts again
-    # delete_table function will
-    # drop table created in previous iteration
-    result = is_table(table_name)
-    if result:
-        cur.execute(drop_table)
+    cur.execute(drop_table)
     con.close()
