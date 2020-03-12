@@ -74,8 +74,8 @@ class SiteMap:
             # href might be either full link like href==https://vk.com/proxyseller/privacy
             #  or relative one line href==/privacy
             href = anchor_link.get('href')
-            # print(href)
             if self.is_same_domain(href):
+                # print(href)
                 # after check might be either
                 # full: https://proxy-seller.ru/blog/parser_datacol_dlya_seo-specialistov
                 # of relative: /bulgarian-proxy
