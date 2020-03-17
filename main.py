@@ -5,7 +5,8 @@ if __name__ == '__main__':
     from sitemap import SiteMap, traverse_breadth
     import db
 
-    url = 'https://proxy-seller.ru/'
+    url = sys.argv[1]
+        #'https://proxy-seller.ru/'
     # examples to test:
     # 1) https://scrapethissite.com/
     # 2) https://proxy-seller.ru/
@@ -24,7 +25,7 @@ if __name__ == '__main__':
     for url in url_structure:
         print(url)
 
-    # delete table (uncomment if necessary )
+    # delete table (uncomment if necessary)
     #db.delete_table(table_name)
 
     # executemany method added

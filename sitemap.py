@@ -22,9 +22,8 @@ class SiteMap:
         self._total_pages = []
         self.parent_children = {}
 
-    # @staticmethod
     def is_same_domain(self, url_check):
-        # print(urlparse(self.url).netloc)
+        print(urlparse(self.url).netloc)
         scheme, netloc, path, params, query, fragment = urlparse(url_check)
         # https://vk.com/proxyseller.netloc == vk.com
         # /privacy.netloc == ''
@@ -37,8 +36,8 @@ class SiteMap:
             # print(url_check)
             return True
 
-    @staticmethod
     # Try to access pages except some Error arises
+    @staticmethod
     def get_content(url):
         try:
             source = requests.get(url, stream=True)
@@ -80,7 +79,6 @@ class SiteMap:
                 # full: https://proxy-seller.ru/blog/parser_datacol_dlya_seo-specialistov
                 # of relative: /bulgarian-proxy
 
-
                 # Examples :
                 #  href=/reception/
                 #  base_url = https://www.cbr.ru/
@@ -90,7 +88,7 @@ class SiteMap:
         return result
 
     def parser(self, url_requested):
-        #print(f'{url_requested} is in process')
+        # print(f'{url_requested} is in process')
         # starting the queue of urls'
         # first url is the website
         # for which sitemap need to be build
