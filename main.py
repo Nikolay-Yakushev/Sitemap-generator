@@ -5,8 +5,13 @@ if __name__ == '__main__':
     from sitemap import SiteMap, traverse_breadth
     import db
 
+<<<<<<< HEAD
     url = sys.argv[1]
         #'https://proxy-seller.ru/'
+=======
+    url = sys.argv[1] 
+    #'https://proxy-seller.ru/'
+>>>>>>> 0803d802a4aa0a185550952a75e9351536e51f7d
     # examples to test:
     # 1) https://scrapethissite.com/
     # 2) https://proxy-seller.ru/
