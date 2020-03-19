@@ -8,8 +8,12 @@ The script will run under Linux operating system which supports Python 3 languag
 
 
 Usage example:
-
-    sudo docker-compose up
+    
+    1) mkdir pg-data
+        ~/Documents/docker_files/postgres_docker$ ll
+            docker.compose.yaml
+            pg-data
+    2) sudo docker-compose up
 
 Input:
 
