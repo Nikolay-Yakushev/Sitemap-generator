@@ -9,9 +9,11 @@ The script will run under Linux operating system which supports Python 3 languag
 
 Usage example:
 
+    sudo docker-compose up
+
 Input:
 
-    python3.8 main.py 'https://scrapethissite.com/'
+    python3.7 main.py 'https://scrapethissite.com/'
     
 python output(traverse breadth):
 
@@ -28,9 +30,11 @@ python output(traverse breadth):
     https://scrapethissite.com/robots.txt
 
 PostgreSQL database output:
+    
+    psql -h localhost -p 54320 -U admin -d sitemap_db
+    password=docker
 
-
-    test_db=# select * from urls;
+    sitema_db=# select * from urls;
         Url_parent                    url_children
       https://proxy-seller.ru/      | {https://proxy-seller.ru/page/rules,https://proxy-seller.ru/faq,https://proxy-seller.ru/otzyvy,https://proxy-seller.ru/blog,https://proxy-seller.ru/contacts,https://proxy-seller.ru/affiliate-program-main,https://proxy-seller.ru/authorization,https://proxy-youla,https://proxy-seller.ru/ipv6,https://proxy-seller.ru/mobile-proxies,https://proxy-seller.ru/offer,https://proxy-seller.ru/privacy-policy}
 
