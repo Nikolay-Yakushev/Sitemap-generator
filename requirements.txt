@@ -1,24 +1,12 @@
-# Library dependencies for the python code.  You need to install these with
-# `pip install -r requirements.txt` before you can run this.
-
 # Required:
-  # Language version Python3.8:
-  # sudo apt install python3.8
-  # PostgreSQL:
-  # wget -q https://www.postgresql.org/media/keys/ACCC4CF8.asc -O - | sudo apt-key add -
-  # sudo apt install postgresql-12 postgresql-contrib-12
-  # to create new user follow instruction
-  # 1) sudo su - postgres | psql
-  # 2) usernanme : createuser --interactive;
-  # (Shall the new role be allowed to create databases? (y/n) n)
-  # 3) create database test_db with owner=username;
-  # 4) ALTER USER username WITH PASSWORD 'new_password';
-  # 5) fulfill config_db with inforamtion
+  # Language version Python3.6+:
+  # docker-compose file with PostgreSQL:
   
   # for auntification use following command
-  # psql -h localhost test_db username
+  # psql -h localhost -p 54320 -U admin -d sitemap_db
+  # password=docker
 
-# After installing python3.8 and configure you Postgres database 
+# After installing python3.6+ and configure run docker-compose.yml 
 # You can `pip install -r requirements.txt`
 #### ESSENTIAL LIBRARIES FOR MAIN FUNCTIONALITY ####
 
