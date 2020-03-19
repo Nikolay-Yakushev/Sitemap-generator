@@ -23,7 +23,6 @@ class SiteMap:
         self.parent_children = {}
 
     def is_same_domain(self, url_check):
-        print(urlparse(self.url).netloc)
         scheme, netloc, path, params, query, fragment = urlparse(url_check)
         # https://vk.com/proxyseller.netloc == vk.com
         # /privacy.netloc == ''
@@ -115,6 +114,7 @@ class SiteMap:
         # delete from queue page which has been checked
         # remove provide thread safe operation
         self._download_queue.remove(url_requested)
+        print(len(self._download_queue))
         return True
 
     # concurrently parse pages

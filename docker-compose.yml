@@ -1,0 +1,17 @@
+version: '3'
+services:
+  db:
+    # install postgres to write 
+    # data into db
+    image: postgres:12
+    container_name: postgres
+    volumes:
+    -  $PWD/pg-data:/var/lib/postgresql/data
+    ports: 
+     - 8080:5432
+    environment:   
+         POSTGRES_PASSWORD: docker
+         POSTGRES_USER: admin
+         POSTGRES_DB: sitemap_db
+         PGDATA: /var/lib/postgresql/data
+    restart: always

@@ -68,3 +68,6 @@ def delete_table(table_name):
     cur = con.cursor()
     cur.execute(drop_table)
     con.close()
+
+
+#con = connect_db()

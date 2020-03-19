@@ -1,17 +1,12 @@
-#!/usr/bin/env python3.8
 import sys
 
 if __name__ == '__main__':
     from sitemap import SiteMap, traverse_breadth
     import db
 
-<<<<<<< HEAD
-    url = sys.argv[1]
-        #'https://proxy-seller.ru/'
-=======
-    url = sys.argv[1] 
-    #'https://proxy-seller.ru/'
->>>>>>> 0803d802a4aa0a185550952a75e9351536e51f7d
+    url = sys.argv[1]  # sys.argv[1]
+    # 'https://proxy-seller.ru/'
+
     # examples to test:
     # 1) https://scrapethissite.com/
     # 2) https://proxy-seller.ru/
@@ -31,7 +26,7 @@ if __name__ == '__main__':
         print(url)
 
     # delete table (uncomment if necessary)
-    #db.delete_table(table_name)
+    # db.delete_table(table_name)
 
     # executemany method added
     db.write_db(table_name, sitemap_first.parent_children)
