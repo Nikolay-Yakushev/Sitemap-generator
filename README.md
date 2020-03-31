@@ -9,12 +9,13 @@ The script will run under Linux operating system which supports Python 3 languag
 
 Usage example:
 
-- mkdir pg-data
+    mkdir pg-data
     ~/Documents/docker_files/postgres_docker$ ll
         docker.compose.yaml
         pg-data
-- sudo docker-compose up -d
- - sudo docker ps
+
+    sudo docker-compose up -d
+    sudo docker ps:
     
 
     CONTAINER ID        IMAGE                         COMMAND                  CREATED             STATUS              PORTS                     NAMES
@@ -26,7 +27,7 @@ Usage example:
 
     root@ce212aa805bb:/# 
    
-- cd home/sitemap
+cd home/sitemap
 
 
     python3 main.py 'https://scrapethissite.com/'
