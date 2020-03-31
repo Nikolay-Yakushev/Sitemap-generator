@@ -6,8 +6,6 @@ services:
     image: postgres:12
     container_name: postgres
     volumes:
-    # mkdir pg-data
-    # this kept data safe even after docker-compose.yml end work cycle 
     -  $PWD/pg-data:/var/lib/postgresql/data
     ports: 
      - 54320:5432
@@ -17,3 +15,11 @@ services:
          POSTGRES_DB: sitemap_db
          PGDATA: /var/lib/postgresql/data
     restart: always
+  app:
+    # download already built image with sitemap 
+    # python script inside
+    image: driver220v/sitemap:improved
+    container_name: sitemap
+    links:
+     - db
+    entrypoint: sleep 50000

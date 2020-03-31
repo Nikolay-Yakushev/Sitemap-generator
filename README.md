@@ -8,16 +8,28 @@ The script will run under Linux operating system which supports Python 3 languag
 
 
 Usage example:
+
+- mkdir pg-data
+    ~/Documents/docker_files/postgres_docker$ ll
+        docker.compose.yaml
+        pg-data
+- sudo docker-compose up -d
+ - sudo docker ps
     
-    1) mkdir pg-data
-        ~/Documents/docker_files/postgres_docker$ ll
-            docker.compose.yaml
-            pg-data
-    2) sudo docker-compose up
 
-Input:
+    CONTAINER ID        IMAGE                         COMMAND                  CREATED             STATUS              PORTS                     NAMES
+    ce212aa805bb        driver220v/sitemap:improved   "sleep 50000"            2 minutes ago       Up 2 minutes                                  sitemap
+    55ee61e40217        postgres:12                   "docker-entrypoint.s…"   About an hour ago   Up 2 minutes        0.0.0.0:54320->5432/tcp   postgres
 
-    python3.7 main.py 'https://scrapethissite.com/'
+- sudo docker exec -it ce212aa805bb /bin/bash
+
+
+    root@ce212aa805bb:/# 
+   
+- cd home/sitemap
+
+
+    python3 main.py 'https://scrapethissite.com/'
     
 python output(traverse breadth):
 
@@ -33,7 +45,7 @@ python output(traverse breadth):
     https://scrapethissite.com/pages/advanced/
     https://scrapethissite.com/robots.txt
 
-PostgreSQL database output:
+PostgreSQL database output(check if necessary):
     
     psql -h localhost -p 54320 -U admin -d sitemap_db
     password=docker

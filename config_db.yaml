@@ -1,5 +1,5 @@
 database: "sitemap_db"
 user: "admin"
 password : "docker"
-host: "localhost"
-port: "54320"
+host: "db"
+port: "5432"
