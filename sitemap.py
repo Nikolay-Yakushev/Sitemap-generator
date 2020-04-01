@@ -87,7 +87,7 @@ class SiteMap:
         return result
 
     def parser(self, url_requested):
-        # print(f'{url_requested} is in process')
+        print(f'{url_requested} is in process')
         # starting the queue of urls'
         # first url is the website
         # for which sitemap need to be build
@@ -114,7 +114,7 @@ class SiteMap:
         # delete from queue page which has been checked
         # remove provide thread safe operation
         self._download_queue.remove(url_requested)
-        print(len(self._download_queue))
+        #print(len(self._download_queue))
         return True
 
     # concurrently parse pages

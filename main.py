@@ -1,10 +1,14 @@
 import sys
+import argparse
 
 if __name__ == '__main__':
     from sitemap import SiteMap, traverse_breadth
     import db
 
-    url = sys.argv[1]  # sys.argv[1]
+    parser = argparse.ArgumentParser(description='Sitemap generator')
+    parser.add_argument('-u', '--url', help="Try this: python3 main.py -u=https://scrapethissite.com/", type=str)
+    args = parser.parse_args()
+    url = args.url
     # 'https://proxy-seller.ru/'
 
     # examples to test:
@@ -26,7 +30,7 @@ if __name__ == '__main__':
         print(url)
 
     # delete table (uncomment if necessary)
-    # db.delete_table(table_name)
+    db.delete_table(table_name)
 
     # executemany method added
     db.write_db(table_name, sitemap_first.parent_children)
