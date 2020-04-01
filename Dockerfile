@@ -1,3 +1,4 @@
+# This is driver220v/sitemap container which will be downloaded while starting docker-compose file
 FROM ubuntu:18.04
 RUN apt update
 RUN apt install -y python3.8 python3-pip
